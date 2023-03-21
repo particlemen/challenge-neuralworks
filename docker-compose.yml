@@ -1,0 +1,27 @@
+version: "3.8"
+   
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=anifit
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - 6556:6556
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_DEFAULT_EMAIL=test@neuralworks.cl
+      - PGADMIN_LISTEN_PORT=6556
+    volumes:
+      - ./pgadmin4/data:/var/lib/pgadmin
