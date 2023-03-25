@@ -10,7 +10,8 @@ CREATE_TABLE_SCRIPT = '''
     destination_latitude REAL,
     destination_longitude REAL,
     travel_timestamp TIMESTAMP,
-    datasource VARCHAR(50)
+    datasource VARCHAR(50),
+    upload_timestamp TIMESTAMP
   );
 '''
 
@@ -30,10 +31,11 @@ INSERT_VALUE_SCRIPT = '''
     destination_latitude,
     destination_longitude,
     travel_timestamp,
-    datasource
+    datasource,
+    upload_timestamp
   ) 
   VALUES (
-    %s, %s, %s, %s, %s, %s, %s
+    %s, %s, %s, %s, %s, %s, %s, NOW()
   );
 '''
 

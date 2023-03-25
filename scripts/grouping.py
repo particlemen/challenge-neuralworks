@@ -74,12 +74,10 @@ def group_near_travels(dataframe):
       if (are_origins_close and are_destinations_close):
         
         if is_first_travel_not_in_dataframe:
-          close_travels = pd.concat([close_travels, first_travel])
           close_travels_to_first_travel = [first_travel.values.tolist()]
           close_travels_to_first_travel[-1][-1][5] = close_travels_to_first_travel[-1][-1][5]._repr_base
           is_first_travel_not_in_dataframe = False
 
-        close_travels = pd.concat( [close_travels, second_travel] ) 
         close_travels_to_first_travel.append(second_travel.values.tolist())
         close_travels_to_first_travel[-1][-1][5] = close_travels_to_first_travel[-1][-1][5]._repr_base
     
