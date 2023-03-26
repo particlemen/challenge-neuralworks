@@ -24,7 +24,10 @@ GROUP BY upload_timestamp;
 db_connection = DB()
 
 def process_weekly_resume(weekly_resume_list, region):
-
+  """
+  Esta funcion traduce el objeto de la lista de las cantidades semanales de viajes a un diccionario para
+  ser transformado a JSON
+  """
   weekly_resume = {}
   weekly_resume["region"] = region
   weekly_resume["travels"] = []
@@ -48,7 +51,11 @@ def process_weekly_resume(weekly_resume_list, region):
   return weekly_resume
 
 def calculate_upload_statistics(upload_results):
+  """
+  Retorna un diccionario para ser transformado en JSON
+  """
   last_update = upload_results[0]
+  #Sumo todos las subidas de los dias
   total_records = sum([day[0] for day in upload_results])
   return {
     "last_uploaded_day": last_update[1],
@@ -62,8 +69,13 @@ async def read_root():
 
 @app.get("/weekly_travel_resume/{region}")
 async def get_weekly_resume(region, min_latitude = 0,  max_latitude=180, min_longitude=0, max_longitude=180):
+  """
+  Retorna un resumen semanal de todos los viajes realizados en una region, dentro de un bounding box definido por
+  las longitudes y latitudes minimas y maximas.
+  """
   db_cursor = db_connection.get_cursor()
   try:
+    #Ejecuto la query
     db_cursor.execute(SELECT_QUERY_BOUNDING_AND_REGION, (
       min_latitude, max_latitude, min_longitude, max_longitude,
       min_latitude, max_latitude, min_longitude, max_longitude, region.lower()))
@@ -72,13 +84,19 @@ async def get_weekly_resume(region, min_latitude = 0,  max_latitude=180, min_lon
     db_cursor.close()
     return 1
   
+  #Obtengo todos los resultados
   query_results = db_cursor.fetchall()
   db_cursor.close()
 
+  #Genero el diccionario de los match y lo retorno
   return process_weekly_resume(query_results, region.capitalize())
 
 @app.get("/data_ingest_state")
 async def get_data_ingest_state():
+  """
+  Retorna informacion de la base de datos, donde se expresa fecha de la ultima subida, 
+  la cantidad de las filas añadidas tal dia y las filas totales.
+  """
   db_cursor = db_connection.get_cursor()
   try:
     db_cursor.execute(SELECT_QUERY_STATE_OF_INGEST)
@@ -90,4 +108,5 @@ async def get_data_ingest_state():
   query_results = db_cursor.fetchall()
   db_cursor.close()
 
+  #Genero el diccionario con la info y lo retorno
   return calculate_upload_statistics(query_results)
