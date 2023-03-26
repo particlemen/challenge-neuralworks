@@ -1,10 +1,8 @@
 # Requisitos
 
-Se necesitan las siguientes librerias de python:
+Se necesita tener instalado docker y docker compose, para correr los contenedores, es necesario correr lo siguiente en la carpeta base
 
-* `psycopg2`
-* `fastapi`
-* `uvicorn` ( ``` pip install "uvicorn[standard]" ``` )
+``` docker-compose up --build ```
 
 ## Procesos automatizados para ingerir y almacenar los datos bajo demanda
 

@@ -1,6 +1,5 @@
 data/
 pdf/
 pgadmin4/
-.env
 .vscode/
 __pycache__

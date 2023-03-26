@@ -43,7 +43,7 @@ INSERT_VALUE_SCRIPT = '''
 DB_NAME = "neuralworks"
 DB_USER = "postgres"
 DB_PASS = "postgres"
-DB_HOST = "localhost"
+DB_HOST = "db"
 DB_PORT = 5432
 
 class DB:
