@@ -8,7 +8,7 @@ Se necesita tener instalado docker y docker compose, para correr los contenedore
 
 El archivo `main.py` es utilizado para crear las tabla necesaria en la base de datos y poblarla con la data presente en el archivo csv necesario.
 
-Para ejecutar el archivo es necesario correr `db.py ruta_al_csv` 
+Para ejecutar el archivo es necesario correr `db.py ruta_al_csv` desde la terminal del contendor de docker (la ruta deberia ser `./csv/trips.csv`)
 
 ## Solucion cloud para el proyecto
 
